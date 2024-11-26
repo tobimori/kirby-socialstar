@@ -18,7 +18,6 @@ return [
 			},
 			'userDetails' => function () {
 				$value = Yaml::decode($this->value());
-
 				if (!$value || !$value['token']) {
 					return null;
 				}
@@ -35,25 +34,40 @@ return [
 				return null;
 			}
 		],
-		'api' => [
-			[
-				'pattern' => '/load-new-posts',
-				'action' => function () {
-					$this->model()->fetchNewInstagramPosts();
-					$this->model()->deleteObsoleteInstagramPostPages();
+		'api' => function () {
+			return [
+				[
+					'pattern' => '/update',
+					'action' => function () {
+						$page = $this->field()->model();
+						if (!$page) {
+							return false;
+						}
 
-					return true;
-				}
-			],
-			[
-				'pattern' => '/remove-auth',
-				'action' => function () {
-					$this->model()->fetchNewInstagramPosts();
-					$this->model()->deleteObsoleteInstagramPostPages();
+						$page->instagramApi()->flushCache();
+						$page->fetchNewInstagramPosts();
+						$page->deleteObsoleteInstagramPostPages();
 
-					return true;
-				}
-			]
-		]
+						return true;
+					}
+				],
+				[
+					'pattern' => '/remove-auth',
+					'action' => function () {
+						$page = $this->field()->model();
+						if (!$page) {
+							return false;
+						}
+
+						$page->removeInstagramAuth();
+						foreach ($page->children()->filterBy('intendedTemplate', 'instagram-post') as $page) {
+							$page->kirby()->impersonate('kirby', fn() => $page->delete());
+						}
+
+						return true;
+					}
+				]
+			];
+		}
 	],
 ];

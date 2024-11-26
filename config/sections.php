@@ -5,11 +5,16 @@ return [
 		'api' => function () {
 			return [
 				[
-					'pattern' => '/say-hello',
+					'pattern' => '/refresh-data',
 					'action' => function () {
-						return [
-							'message' => 'Hello, World!'
-						];
+						$page = $this->section()->model();
+						if (!$page) {
+							return false;
+						}
+
+						$page->updatePostPage();
+
+						return true;
 					}
 				]
 			];

@@ -207,15 +207,16 @@ class Api
 
 	public function cache(string $type, ...$args): array
 	{
-		if (App::instance()->option('debug')) {
-			return $this->$type(...$args);
-		}
-
 		$cache = App::instance()->cache('tobimori.socialstar');
 		$key = $type . hash('md5', json_encode($args), true);
 
 		return $cache->getOrSet($key, function () use ($type, $args) {
 			return $this->$type(...$args);
 		}, SocialStar::option('ttl'));
+	}
+
+	public function flushCache(): bool
+	{
+		return App::instance()->cache('tobimori.socialstar')->flush();
 	}
 }

@@ -25,15 +25,14 @@ trait HasInstagramPosts
 		return Api::instance();
 	}
 
-	public function instagramAccessToken(): string
+	public function instagramAccessToken(): string|null
 	{
-		return $this->instagramField()->token()->value();
+		return $this->instagramField()->token()->value() ?? null;
 	}
 
 	public function fetchNewInstagramPosts(): Pages
 	{
-		$media = $this->instagramApi()->getUserMediaIds($this->instagramAccessToken());
-
+		$media = $this->instagramApi()->cache('getUserMediaIds', $this->instagramAccessToken());
 		$pages = [];
 		foreach ($media['data'] as $post) {
 			$id = $post['id'];
@@ -48,12 +47,17 @@ trait HasInstagramPosts
 		return new Pages($pages, $this);
 	}
 
+	/**
+	 * Delete all instagram post pages that can't be found in the instagram feed api response
+	 */
 	public function deleteObsoleteInstagramPostPages(): void
 	{
-		$media = $this->instagramApi()->getUserMediaIds($this->instagramAccessToken());
+		$media = $this->instagramApi()->cache('getUserMediaIds', $this->instagramAccessToken());
+		$flatIds = array_reduce($media['data'], fn($carry, $item) => array_merge($carry, [$item['id']]), []);
 
-		foreach ($this->children()->filterBy('template', 'instagram-post') as $page) {
-			if (!in_array($page->uuid()->id(), $media['data'])) {
+		foreach ($this->children()->filterBy('intendedTemplate', 'instagram-post') as $page) {
+			if (!in_array($page->uuid()->id(), $flatIds)) {
+				$this->kirby()->impersonate('kirby', fn() => $page->delete());
 			}
 		}
 	}
@@ -66,7 +70,6 @@ trait HasInstagramPosts
 			'slug' => $details['shortcode'],
 			'template' => 'instagram-post',
 			'draft' => false,
-			'num' => strtotime($details['timestamp']),
 			'parent' => $this,
 			'content' => [
 				'caption' => $details['caption'] ?? "",
@@ -78,6 +81,8 @@ trait HasInstagramPosts
 				'timestamp' => $details['timestamp'],
 			]
 		]));
+
+		$page = $this->kirby()->impersonate('kirby', fn() => $page->changeStatus('listed', strtotime($details['timestamp'])));
 
 		$files = [$details['thumbnail_url'] ?? $details['media_url']];
 		if ($details['media_type'] === 'CAROUSEL_ALBUM') {
@@ -105,6 +110,13 @@ trait HasInstagramPosts
 		Dir::remove($tempDir);
 
 		return $page;
+	}
+
+	public function removeInstagramAuth(): Page
+	{
+		return $this->save([
+			static::$instagramFieldKey => null
+		]);
 	}
 
 	public function refreshInstagramAccessToken(): void

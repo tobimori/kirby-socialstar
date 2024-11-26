@@ -1,16 +1,45 @@
 <script setup>
-import { ref } from "kirbyuse"
+import { ref, usePanel } from "kirbyuse"
+import { disabled, name } from "kirbyuse/props"
 
 const props = defineProps({
 	hasAuthCredentials: Boolean,
 	authUrl: String,
-	userDetails: Object
+	userDetails: Object,
+	...name
 })
-
-console.log(props.userDetails)
 
 const openAuthUrl = () => {
 	window.location.href = props.authUrl
+}
+
+const panel = usePanel()
+
+const isLoading = ref(false)
+const loadNewPosts = () => {
+	isLoading.value = true
+	panel.api.get(`${panel.view.path}/fields/${props.name}/update`).then(() => {
+		isLoading.value = false
+		panel.reload()
+	})
+}
+
+const disconnect = () => {
+	panel.dialog.open({
+		component: "k-remove-dialog",
+		props: { text: panel.t("socialstar.instagram.disconnectConfirm") },
+		on: {
+			submit: () => {
+				panel.api
+					.get(`${panel.view.path}/fields/${props.name}/remove-auth`)
+					.then(() => {
+						panel.reload()
+					})
+
+				panel.dialog.close()
+			}
+		}
+	})
 }
 </script>
 
@@ -95,17 +124,20 @@ const openAuthUrl = () => {
 					size="sm"
 					theme="green"
 					variant="filled"
-					icon="download"
-					@click="openAuthUrl"
+					:icon="isLoading ? 'loader' : 'download'"
+					:disabled="isLoading"
+					@click="loadNewPosts"
 				>
-					{{ $t("socialstar.loadNewPosts") }}
+					{{
+						isLoading ? $t("socialstar.loading") : $t("socialstar.loadNewPosts")
+					}}
 				</k-button>
 				<k-button
 					size="sm"
 					variant="filled"
 					theme="error"
 					icon="logout"
-					@click="openAuthUrl"
+					@click="disconnect"
 				>
 					{{ $t("socialstar.disconnect") }}
 				</k-button>
@@ -173,6 +205,7 @@ const openAuthUrl = () => {
 		margin-right: 0.1rem;
 
 		.k-button {
+			min-width: 13em;
 			justify-content: start;
 		}
 	}

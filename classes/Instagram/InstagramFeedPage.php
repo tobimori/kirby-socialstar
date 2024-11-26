@@ -13,9 +13,11 @@ class InstagramFeedPage extends Page
 
 	public function title(): Field
 	{
-		$userDetails = $this->instagramApi()->cache('getUserDetails', $this->instagramAccessToken());
-		if ($userDetails) {
-			return new Field($this, 'title',  I18n::template('socialstar.instagram.accountName', replace: ['name' => $userDetails['username']]));
+		if ($this->instagramAccessToken()) {
+			$userDetails = $this->instagramApi()->cache('getUserDetails', $this->instagramAccessToken());
+			if ($userDetails) {
+				return new Field($this, 'title',  I18n::template('socialstar.instagram.accountName', replace: ['name' => $userDetails['username']]));
+			}
 		}
 
 		return new Field($this, 'title', I18n::translate('socialstar.instagram.noAccountTitle'));

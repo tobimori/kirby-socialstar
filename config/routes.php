@@ -34,6 +34,8 @@ return [
 							'expires' => time() + $longLivedToken['expires_in'] - 1
 						]
 					]);
+
+					$page->fetchNewInstagramPosts();
 				} catch (\Exception $e) {
 					// store error in session so we can show it to the user
 				}

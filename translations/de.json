@@ -2,7 +2,9 @@
 	"connect": "Verbinden",
 	"loadNewPosts": "Neue Beiträge laden",
 	"refresh": "Aktualisieren",
+	"loading": "Lade...",
 	"disconnect": "Trennen",
+	"instagram.disconnectConfirm": "Möchtest du wirklich die Verbindung von deinem Instagram-Konto trennen? Alle gespeicherten Beiträge sowie die Bearbeitungen werden gelöscht.",
 	"instagram": "Instagram",
 	"instagram.appId": "App-ID",
 	"instagram.appSecret": "App-Geheimschlüssel",
@@ -23,5 +25,15 @@
 	"instagram.accountName": "Instagram: @{name}",
 	"instagram.reel": "▶ Reel",
 	"instagram.carousel": "Karussell",
-	"instagram.image": "Bild"
+	"instagram.image": "Bild",
+	"license.activate": "Lizenz aktivieren",
+	"license.activate.domain": "Deine Lizenz wird für die Domain <strong>{{ domain }}</strong> aktiviert.",
+	"license.activate.label": "SocialStar aktivieren",
+	"license.activate.local": "Du aktivierst SocialStar auf deiner lokalen Domain <strong>{{ domain }}</strong>. Wenn diese Website später auf einer öffentlichen Domain betrieben werden soll, warte bitte mit der Aktivierung.",
+	"license.buy": "Lizenz kaufen",
+	"license.demoMode": "Antworten werden im Demo-Modus nur von angemeldeten Benutzern akzeptiert.",
+	"license.error.email": "Bitte gebe eine gültige E-Mail-Adresse ein.",
+	"license.error.key": "Bitte gebe einen gültigen Lizenzschlüssel ein.",
+	"license.key.help": "Du findest deinen Lizenzschlüssel nach dem Kauf im Kontobereich der Website von <a target=\"_blank\" href=\"https://plugins.andkindness.com/account\">Love & Kindness</a>.",
+	"license.key.label": "Gebe deinen Lizenzschlüssel ein"
 }
