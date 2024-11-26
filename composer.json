@@ -1,0 +1,36 @@
+{
+	"name": "tobimori/kirby-socialstar",
+	"description": "Integrate Instagram & YouTube (more soon) in your Kirby site with SocialStar",
+	"type": "kirby-plugin",
+	"version": "1.0.0",
+	"license": "proprietary",
+	"homepage": "https://plugins.andkindness.com/socialstar",
+	"authors": [
+		{
+			"name": "Tobias Möritz",
+			"email": "tobias@moeritz.io"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"tobimori\\SocialStar\\": "classes"
+		}
+	},
+	"require": {
+		"php": ">=8.2.0",
+		"getkirby/composer-installer": "^1.2.1"
+	},
+	"scripts": {
+		"dist": "composer install --no-dev --optimize-autoloader",
+		"fix": "php-cs-fixer fix"
+	},
+	"config": {
+		"optimize-autoloader": true,
+		"allow-plugins": {
+			"getkirby/composer-installer": true
+		}
+	},
+	"extra": {
+		"kirby-cms-path": false
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"connect": "Verbinden",
+	"loadNewPosts": "Neue Beiträge laden",
+	"refresh": "Aktualisieren",
+	"disconnect": "Trennen",
+	"instagram": "Instagram",
+	"instagram.appId": "App-ID",
+	"instagram.appSecret": "App-Geheimschlüssel",
+	"instagram.connectAccount": "Verbinde dein Instagram-Konto",
+	"instagram.missingApiCredentials": "Bitte hinterlege die Instagram-App-ID und -Geheimschlüssel in der Kirby-Konfiguration.",
+	"instagram.noPosts": "Keine Instagram-Beiträge vorhanden",
+	"instagram.followers": "{count} Follower",
+	"instagram.follows": "{count} Gefolgt",
+	"instagram.posts": "{count} Beiträge"
+}

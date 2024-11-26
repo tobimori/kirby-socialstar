@@ -1,0 +1,207 @@
+<script setup>
+import { ref } from "kirbyuse"
+
+const props = defineProps({
+	hasAuthCredentials: Boolean,
+	authUrl: String,
+	userDetails: Object
+})
+
+console.log(props.userDetails)
+
+const openAuthUrl = () => {
+	window.location.href = props.authUrl
+}
+</script>
+
+<template>
+	<k-field
+		class="star-connect-account"
+		v-if="!userDetails"
+		:class="{ 'has-error': !hasAuthCredentials }"
+		v-bind="props"
+	>
+		<div class="star-connect-account_wrapper">
+			<k-icon type="instagram" />
+			<span v-if="hasAuthCredentials">{{
+				$t("socialstar.instagram.connectAccount")
+			}}</span>
+			<span v-else>{{ $t("socialstar.instagram.missingApiCredentials") }}</span>
+		</div>
+
+		<k-button
+			size="sm"
+			variant="filled"
+			icon="check"
+			:theme="hasAuthCredentials ? 'pink' : 'error'"
+			:disabled="!hasAuthCredentials"
+			@click="openAuthUrl"
+		>
+			{{ $t("socialstar.connect") }}
+		</k-button>
+	</k-field>
+	<k-field v-else label="Instagram-Account">
+		<div class="star-instagram-account">
+			<img
+				:src="userDetails.profile_picture_url"
+				class="star-instagram-account_avatar"
+			/>
+
+			<div class="star-instagram-account_content">
+				<a
+					class="star-instagram-account_name"
+					:href="`https://instagram.com/${userDetails.username}`"
+					target="_blank"
+				>
+					<span>{{ userDetails.name }}</span>
+					<strong>@{{ userDetails.username }}</strong>
+				</a>
+
+				<ul>
+					<li>
+						<k-icon type="images" />
+
+						{{
+							$t("socialstar.instagram.posts", {
+								count: userDetails.media_count
+							})
+						}}
+					</li>
+
+					<li>
+						<k-icon type="users" />
+
+						{{
+							$t("socialstar.instagram.followers", {
+								count: userDetails.followers_count
+							})
+						}}
+					</li>
+
+					<li>
+						<k-icon type="star-outline" />
+
+						{{
+							$t("socialstar.instagram.follows", {
+								count: userDetails.follows_count
+							})
+						}}
+					</li>
+				</ul>
+			</div>
+
+			<div class="star-instagram-account_actions">
+				<k-button
+					size="sm"
+					theme="green"
+					variant="filled"
+					icon="download"
+					@click="openAuthUrl"
+				>
+					{{ $t("socialstar.loadNewPosts") }}
+				</k-button>
+				<k-button
+					size="sm"
+					variant="filled"
+					theme="error"
+					icon="logout"
+					@click="openAuthUrl"
+				>
+					{{ $t("socialstar.disconnect") }}
+				</k-button>
+			</div>
+		</div>
+	</k-field>
+</template>
+
+<style lang="scss">
+.star-instagram-account {
+	background: var(--color-white);
+	box-shadow: var(--shadow);
+	border-radius: var(--rounded-lg);
+	padding: var(--spacing-1);
+	display: flex;
+	gap: var(--spacing-3);
+	align-items: center;
+
+	&_avatar {
+		width: 4rem;
+		height: 4rem;
+		border-radius: var(--rounded);
+		object-fit: cover;
+	}
+
+	&_name {
+		display: flex;
+		gap: var(--spacing-1);
+
+		@container (max-width: 40em) {
+			flex-direction: column;
+		}
+	}
+
+	&_content {
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem;
+
+		ul,
+		li {
+			display: flex;
+			gap: var(--spacing-1);
+			align-items: center;
+			font-weight: var(--font-semi);
+			opacity: 0.75;
+
+			@container (max-width: 40em) {
+				display: none;
+			}
+		}
+
+		li:not(:last-child)::after {
+			opacity: 0.5;
+			content: "·";
+			margin: 0 var(--spacing-1);
+		}
+	}
+
+	&_actions {
+		display: flex;
+		flex-direction: column;
+		margin-left: auto;
+		gap: var(--spacing-1);
+		margin-right: 0.1rem;
+
+		.k-button {
+			justify-content: start;
+		}
+	}
+}
+
+.star-connect-account {
+	background: var(--color-pink-300);
+	padding: var(--spacing-1);
+	border-radius: var(--rounded-lg);
+	justify-content: space-between;
+
+	&.has-error {
+		background: var(--color-red-300);
+		color: var(--color-red-900);
+	}
+
+	.k-field-header {
+		display: none;
+	}
+
+	&,
+	&_wrapper {
+		display: flex;
+		align-items: center;
+	}
+
+	&_wrapper {
+		padding-left: var(--spacing-2);
+		gap: var(--spacing-2);
+	}
+}
+</style>

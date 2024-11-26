@@ -1,0 +1,14 @@
+{
+	"private": true,
+	"scripts": {
+		"dev": "kirbyup serve src/index.js",
+		"build": "kirbyup src/index.js"
+	},
+	"devDependencies": {
+		"kirbyup": "^3.2.0",
+		"sass": "^1.81.0"
+	},
+	"dependencies": {
+		"kirbyuse": "^0.7.1"
+	}
+}

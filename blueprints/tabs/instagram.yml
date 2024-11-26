@@ -1,0 +1,19 @@
+label: socialstar.instagram
+icon: instagram
+
+sections:
+  instagramFields:
+    type: fields
+    fields:
+      instagramConnector:
+        type: socialstar-instagram-connector
+  instagramPosts:
+    label: socialstar.instagram.posts
+    type: pages
+    template: instagram-post
+    empty: socialstar.instagram.noPosts
+    create: false
+    layout: cards
+    image:
+      ratio: 1/1
+      cover: true
