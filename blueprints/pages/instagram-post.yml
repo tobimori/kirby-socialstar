@@ -1,0 +1,14 @@
+num: "{{ page.timestamp.toDate }}"
+
+options:
+  changeTitle: false
+  changeSlug: false
+  changeStatus: false
+  changeTemplate: false
+  move: false
+  duplicate: false
+  delete: false
+  preview: "{{ page.content.permalink }}"
+
+tabs:
+  instagram: socialstar/instagram-post

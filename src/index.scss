@@ -1,0 +1,16 @@
+.k-section-name-instagramFiles {
+
+	.k-item {
+		overflow: hidden;
+
+		.k-item-content {
+			padding: 0;
+		}
+	}
+
+	.k-section-buttons,
+	.k-item-options,
+	.k-sort-handle {
+		display: none;
+	}
+}

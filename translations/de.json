@@ -11,5 +11,17 @@
 	"instagram.noPosts": "Keine Instagram-Beiträge vorhanden",
 	"instagram.followers": "{count} Follower",
 	"instagram.follows": "{count} Gefolgt",
-	"instagram.posts": "{count} Beiträge"
+	"instagram.posts": "{count} Beiträge",
+	"instagram.post.info": "{likes} Likes • {comments} Kommentare",
+	"instagram.post.caption": "Bildunterschrift",
+	"instagram.post.likes": "Likes",
+	"instagram.post.comments": "Kommentare",
+	"instagram.post.timestamp": "Veröffentlicht am...",
+	"instagram.post.mediaType": "Medientyp",
+	"instagram.post.files": "Medien",
+	"instagram.noAccountTitle": "Instagram",
+	"instagram.accountName": "Instagram: @{name}",
+	"instagram.reel": "▶ Reel",
+	"instagram.carousel": "Karussell",
+	"instagram.image": "Bild"
 }

@@ -1,0 +1,61 @@
+label: socialstar.instagram
+icon: instagram
+
+columns:
+  main:
+    width: 2/3
+    sections:
+      instagramFiles:
+        label: socialstar.instagram.post.files
+        type: files
+        layout: cards
+        size: large
+        title: false
+        disabled: true
+        template: instagram-post-image
+        text: false
+        image:
+          ratio: "{{ file.ratio }}"
+      mainFields:
+        type: fields
+        fields:
+          caption:
+            label: socialstar.instagram.post.caption
+            type: textarea
+            disabled: true
+  sidebar:
+    width: 1/3
+    sections:
+      actions:
+        type: socialstar-instagram-post-actions
+      sidebarFields:
+        type: fields
+        fields:
+          timestamp:
+            label: socialstar.instagram.post.timestamp
+            type: date
+            time: true
+            disabled: true
+          mediaType:
+            label: socialstar.instagram.post.mediaType
+            type: select
+            disabled: true
+            options:
+              "IMAGE":
+                "*": socialstar.instagram.image
+              "VIDEO":
+                "*": socialstar.instagram.reel
+              "CAROUSEL_ALBUM":
+                "*": socialstar.instagram.carousel
+          likeCount:
+            label: socialstar.instagram.post.likes
+            type: number
+            icon: heart
+            after: socialstar.instagram.post.likes
+            disabled: true
+          commentsCount:
+            label: socialstar.instagram.post.comments
+            type: number
+            icon: chat
+            after: socialstar.instagram.post.comments
+            disabled: true

@@ -1,0 +1,9 @@
+options:
+  changeName: false
+  changeTemplate: false
+  delete: false
+  replace: false
+  update: false
+
+fields:
+  hidden: true

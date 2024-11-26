@@ -17,3 +17,6 @@ sections:
     image:
       ratio: 1/1
       cover: true
+    text: "{{ page.caption.or(page.title) }}"
+    info: "{{ page.info }}"
+    flip: true
