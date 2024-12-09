@@ -1,5 +1,7 @@
 options:
   changeTitle: false
 
+buttons: []
+
 tabs:
   instagram: socialstar/instagram

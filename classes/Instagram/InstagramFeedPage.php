@@ -20,6 +20,6 @@ class InstagramFeedPage extends Page
 			}
 		}
 
-		return new Field($this, 'title', I18n::translate('socialstar.instagram.noAccountTitle'));
+		return new Field($this, 'title', I18n::translate('socialstar.instagram'));
 	}
 }

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, usePanel } from "kirbyuse"
-import { disabled, name } from "kirbyuse/props"
+import { name } from "kirbyuse/props"
+import ConnectorBase from "./ConnectorBase.vue"
 
 const props = defineProps({
 	hasAuthCredentials: Boolean,
@@ -44,41 +45,24 @@ const disconnect = () => {
 </script>
 
 <template>
-	<k-field
-		class="star-connect-account"
-		v-if="!userDetails"
-		:class="{ 'has-error': !hasAuthCredentials }"
-		v-bind="props"
+	<ConnectorBase
+		service="instagram"
+		:isConnected="!!userDetails"
+		:hasAuthCredentials="hasAuthCredentials"
+		:isLoading="isLoading"
+		@connect="openAuthUrl"
+		@disconnect="disconnect"
+		@refresh="loadNewPosts"
 	>
-		<div class="star-connect-account_wrapper">
-			<k-icon type="instagram" />
-			<span v-if="hasAuthCredentials">{{
-				$t("socialstar.instagram.connectAccount")
-			}}</span>
-			<span v-else>{{ $t("socialstar.instagram.missingApiCredentials") }}</span>
-		</div>
-
-		<k-button
-			size="sm"
-			variant="filled"
-			icon="check"
-			:theme="hasAuthCredentials ? 'pink' : 'error'"
-			:disabled="!hasAuthCredentials"
-			@click="openAuthUrl"
-		>
-			{{ $t("socialstar.connect") }}
-		</k-button>
-	</k-field>
-	<k-field v-else label="Instagram-Account">
-		<div class="star-instagram-account">
+		<template v-if="userDetails">
 			<img
 				:src="userDetails.profile_picture_url"
-				class="star-instagram-account_avatar"
+				class="star-instagram_avatar"
 			/>
 
-			<div class="star-instagram-account_content">
+			<div class="star-instagram_content">
 				<a
-					class="star-instagram-account_name"
+					class="star-instagram_name"
 					:href="`https://instagram.com/${userDetails.username}`"
 					target="_blank"
 				>
@@ -118,36 +102,12 @@ const disconnect = () => {
 					</li>
 				</ul>
 			</div>
-
-			<div class="star-instagram-account_actions">
-				<k-button
-					size="sm"
-					theme="green"
-					variant="filled"
-					:icon="isLoading ? 'loader' : 'download'"
-					:disabled="isLoading"
-					@click="loadNewPosts"
-				>
-					{{
-						isLoading ? $t("socialstar.loading") : $t("socialstar.loadNewPosts")
-					}}
-				</k-button>
-				<k-button
-					size="sm"
-					variant="filled"
-					theme="error"
-					icon="logout"
-					@click="disconnect"
-				>
-					{{ $t("socialstar.disconnect") }}
-				</k-button>
-			</div>
-		</div>
-	</k-field>
+		</template>
+	</ConnectorBase>
 </template>
 
 <style lang="scss">
-.star-instagram-account {
+.star-instagram {
 	background: var(--item-color-back);
 	box-shadow: var(--shadow);
 	border-radius: var(--rounded-lg);

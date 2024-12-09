@@ -1,4 +1,4 @@
-num: "{{ page.timestamp.toDate }}"
+num: "{{ page.publishedAt.toDate }}"
 
 options:
   changeTitle: false
@@ -14,4 +14,4 @@ buttons:
   - refresh
 
 tabs:
-  instagram: socialstar/instagram-post
+  youtube: socialstar/youtube-video

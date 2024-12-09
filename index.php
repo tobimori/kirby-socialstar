@@ -22,18 +22,23 @@ App::plugin(
 		'pageModels' => [
 			'instagram-feed' => \tobimori\SocialStar\Instagram\InstagramFeedPage::class,
 			'instagram-post' => \tobimori\SocialStar\Instagram\InstagramPostPage::class,
+			'youtube-channel' => \tobimori\SocialStar\YouTube\YouTubeChannelPage::class,
+			'youtube-video' => \tobimori\SocialStar\YouTube\YouTubeVideoPage::class,
 		],
-		'sections' => require __DIR__ . '/config/sections.php',
+		'areas' => require __DIR__ . '/config/areas.php',
 		'fields' => require __DIR__ . '/config/fields.php',
 		'routes' => require __DIR__ . '/config/routes.php',
 		'blueprints' => [
 			'files/instagram-post-image' => __DIR__ . '/blueprints/files/instagram-post-image.yml',
+			'files/youtube-thumbnail' => __DIR__ . '/blueprints/files/youtube-thumbnail.yml',
 			'pages/instagram-feed' => __DIR__ . '/blueprints/pages/instagram-feed.yml',
 			'pages/instagram-post' => __DIR__ . '/blueprints/pages/instagram-post.yml',
 			'pages/youtube-channel' => __DIR__ . '/blueprints/pages/youtube-channel.yml',
+			'pages/youtube-video' => __DIR__ . '/blueprints/pages/youtube-video.yml',
 			'socialstar/instagram' => __DIR__ . '/blueprints/tabs/instagram.yml',
 			'socialstar/instagram-post' => __DIR__ . '/blueprints/tabs/instagram-post.yml',
-			'socialstar/youtube' => __DIR__ . '/blueprints/tabs/youtube.yml'
+			'socialstar/youtube' => __DIR__ . '/blueprints/tabs/youtube.yml',
+			'socialstar/youtube-video' => __DIR__ . '/blueprints/tabs/youtube-video.yml'
 		],
 		'translations' => A::keyBy(
 			A::map(
@@ -56,5 +61,5 @@ App::plugin(
 	info: [
 		'homepage' => 'https://plugins.andkindness.com/socialstar'
 	],
-	version: '1.0.0'
+	version: '1.0.0',
 );

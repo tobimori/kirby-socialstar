@@ -1,0 +1,40 @@
+label: socialstar.youtube
+icon: youtube
+
+columns:
+  main:
+    width: 2/3
+    sections:
+      mainFields:
+        type: fields
+        fields:
+          uuid:
+            label: socialstar.youtube.video
+            type: socialstar-youtube-embed
+          description:
+            label: socialstar.youtube.video.description
+            type: textarea
+            disabled: true
+  sidebar:
+    width: 1/3
+    sections:
+      youtubeThumbnail:
+        label: socialstar.youtube.video.thumbnail
+        type: files
+        layout: cards
+        size: large
+        title: false
+        disabled: true
+        template: youtube-thumbnail
+        text: false
+        max: 1
+        image:
+          ratio: "{{ file.ratio }}"
+      sidebarFields:
+        type: fields
+        fields:
+          publishedAt:
+            label: socialstar.youtube.video.publishedAt
+            type: date
+            time: true
+            disabled: true

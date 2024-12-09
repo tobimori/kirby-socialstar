@@ -26,8 +26,6 @@ columns:
   sidebar:
     width: 1/3
     sections:
-      actions:
-        type: socialstar-instagram-post-actions
       sidebarFields:
         type: fields
         fields:

@@ -1,0 +1,7 @@
+options:
+  changeTitle: false
+
+buttons: []
+
+tabs:
+  youtube: socialstar/youtube

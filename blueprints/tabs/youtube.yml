@@ -1,0 +1,22 @@
+label: socialstar.youtube
+icon: youtube
+
+sections:
+  youtubeFields:
+    type: fields
+    fields:
+      youtubeConnector:
+        type: socialstar-youtube-connector
+  youtubeVideos:
+    label: socialstar.youtube.videos
+    type: pages
+    template: youtube-video
+    empty: socialstar.youtube.noVideos
+    create: false
+    layout: cards
+    image:
+      ratio: 16/9
+      cover: true
+    text: "{{ page.caption.or(page.title) }}"
+    info: "{{ page.info }}"
+    flip: true

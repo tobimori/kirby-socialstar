@@ -1,13 +1,18 @@
 <?php
 
 use Kirby\Cms\App;
+use Kirby\Cms\Page;
 use Kirby\Panel\Field;
 use Kirby\Toolkit\Str;
 use Kirby\Toolkit\V;
+use tobimori\SocialStar\Panel\RefreshButton;
 use tobimori\SocialStar\Support\License;
 
 return [
-	'dreamform' => fn() => [
+	'socialstar' => fn() => [
+		'buttons' => [
+			'refresh' => fn(Page $model) => new RefreshButton($model)
+		],
 		'dialogs' => [
 			'socialstar/activate' => [
 				'load' => fn() => [
