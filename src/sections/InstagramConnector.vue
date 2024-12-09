@@ -148,7 +148,7 @@ const disconnect = () => {
 
 <style lang="scss">
 .star-instagram-account {
-	background: var(--color-white);
+	background: var(--item-color-back);
 	box-shadow: var(--shadow);
 	border-radius: var(--rounded-lg);
 	padding: var(--spacing-1);
@@ -183,7 +183,7 @@ const disconnect = () => {
 			gap: var(--spacing-1);
 			align-items: center;
 			font-weight: var(--font-semi);
-			opacity: 0.75;
+			color: var(--color-text-dimmed);
 
 			@container (max-width: 40em) {
 				display: none;
@@ -216,6 +216,7 @@ const disconnect = () => {
 	padding: var(--spacing-1);
 	border-radius: var(--rounded-lg);
 	justify-content: space-between;
+	color: var(--color-black);
 
 	&.has-error {
 		background: var(--color-red-300);

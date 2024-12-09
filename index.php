@@ -4,19 +4,15 @@
 
 use Kirby\Cms\App;
 use Kirby\Data\Json;
-use Kirby\Data\Yaml;
 use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
-use Kirby\Http\Response;
 use Kirby\Toolkit\A;
-use tobimori\SocialStar\Instagram\Api;
-use tobimori\SocialStar\SocialStar;
 
 if (
-	version_compare(App::version() ?? '0.0.0', '4.4.0', '<') === true ||
-	version_compare(App::version() ?? '0.0.0', '5.0.0', '>') === true
+	version_compare(App::version() ?? '0.0.0', '5.0.0-beta.1', '<') === true ||
+	version_compare(App::version() ?? '0.0.0', '6.0.0', '>') === true
 ) {
-	throw new Exception('Kirby DreamForm requires Kirby 4.4.0');
+	throw new Exception('Kirby SocialStar requires Kirby 5');
 }
 
 App::plugin(

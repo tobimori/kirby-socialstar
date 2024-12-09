@@ -4,6 +4,7 @@ namespace tobimori\SocialStar\Instagram;
 
 use Kirby\Cms\Page;
 use Kirby\Content\Field;
+use Kirby\Content\VersionId;
 use Kirby\Toolkit\I18n;
 
 class InstagramPostPage extends Page
@@ -25,13 +26,13 @@ class InstagramPostPage extends Page
 		return $this->content()->get('caption')->excerpt(64);
 	}
 
-	public function render(array $data = [], $contentType = 'html'): string
+	public function render(array $data = [], $contentType = 'html', VersionId|string|null $versionId = null): string
 	{
 		if ($this->intendedTemplate()->name() !== $this->template()->name()) {
 			go($this->content()->get('permalink')->value());
 		}
 
-		return parent::render($data, $contentType);
+		return parent::render($data, $contentType . $versionId);
 	}
 
 	public function updatePostPage(): static
