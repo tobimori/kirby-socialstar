@@ -1,6 +1,6 @@
 {
 	"name": "tobimori/kirby-socialstar",
-	"description": "Integrate Instagram & YouTube (more soon) in your Kirby site with SocialStar",
+	"description": "Integrate Instagram & YouTube in your Kirby site with SocialStar",
 	"type": "kirby-plugin",
 	"license": "proprietary",
 	"homepage": "https://plugins.andkindness.com/socialstar",
