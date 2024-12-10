@@ -32,27 +32,41 @@ trait HasYouTubeVideos
 		]);
 	}
 
-	public function fetchNewYouTubeVideos(): Pages
+	public function fetchNewYouTubeVideos(string|null $pageToken = null): string|null
 	{
-		$pageToken = null;
-		$pages = [];
-		while (true) {
-			$media = $this->youtubeApi()->cache('getPlaylistItems', $this->youtubeField()->playlist()->value(), $pageToken);
+		$media = $this->youtubeApi()->cache('getPlaylistItems', $this->youtubeField()->playlist()->value(), $pageToken);
 
-			foreach ($media['items'] as $video) {
-				$id = $video['snippet']['resourceId']['videoId'];
+		foreach ($media['items'] as $video) {
+			$id = $video['snippet']['resourceId']['videoId'];
 
-				if (!($page = $this->children()->find("page://{$id}"))) {
-					$page = $this->createYouTubeVideoPage($video['snippet']);
-				}
-
-				$pages[] = $page;
+			if (!($this->children()->find("page://{$id}"))) {
+				$this->createYouTubeVideoPage($video['snippet']);
 			}
+		}
 
-			if (isset($media['nextPageToken'])) {
-				$pageToken = $media['nextPageToken'];
-			} else {
-				return new Pages($pages, $this);
+		if (isset($media['nextPageToken'])) {
+			return $media['nextPageToken'];
+		}
+
+		return null;
+	}
+
+	/**
+	 * Delete all youtube video pages that can't be found in the youtube feed api response
+	 */
+	public function deleteObsoleteYouTubeVideoPages(array $pageTokens): void
+	{
+		$ids = [];
+		foreach ($pageTokens as $token) {
+			$items = $this->youtubeApi()->cache('getPlaylistItems', $this->youtubeField()->playlist()->value(), $token);
+			foreach ($items['items'] as $item) {
+				$ids[] = $item['snippet']['resourceId']['videoId'];
+			}
+		}
+
+		foreach ($this->children()->filterBy('intendedTemplate', 'youtube-video') as $page) {
+			if (!in_array($page->uuid()->id(), $ids)) {
+				$this->kirby()->impersonate('kirby', fn() => $page->delete());
 			}
 		}
 	}

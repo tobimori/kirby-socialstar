@@ -2,7 +2,7 @@
 	"connect": "Verbinden",
 	"loadNewPosts": "Neue Beiträge laden",
 	"refresh": "Aktualisieren",
-	"loading": "Lade...",
+	"loadingPage": "Lade Seite {currentPage} von {totalPages}...",
 	"disconnect": "Trennen",
 	"instagram.disconnectConfirm": "Möchtest du wirklich die Verbindung von deinem Instagram-Konto trennen? Alle gespeicherten Beiträge sowie die Bearbeitungen werden gelöscht.",
 	"instagram": "Instagram",

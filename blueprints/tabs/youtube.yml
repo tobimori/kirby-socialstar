@@ -17,6 +17,6 @@ sections:
     image:
       ratio: 16/9
       cover: true
-    text: "{{ page.caption.or(page.title) }}"
-    info: "{{ page.info }}"
+    text: "{{ page.title }}"
+    info: "{{ page.description.excerpt(64) }}"
     flip: true

@@ -5,7 +5,11 @@ const props = defineProps({
 	hasAuthCredentials: Boolean,
 	isConnected: Boolean,
 	service: String,
-	isLoading: Boolean,
+	currentPage: {
+		type: Number,
+		default: null
+	},
+	totalPages: Number,
 	...name
 })
 
@@ -49,12 +53,14 @@ const emit = defineEmits(["connect", "disconnect", "refresh"])
 					size="sm"
 					theme="green"
 					variant="filled"
-					:icon="isLoading ? 'loader' : 'download'"
-					:disabled="isLoading"
+					:icon="!!currentPage ? 'loader' : 'download'"
+					:disabled="!!currentPage"
 					@click="emit('refresh')"
 				>
 					{{
-						isLoading ? $t("socialstar.loading") : $t("socialstar.loadNewPosts")
+						currentPage
+							? $t("socialstar.loadingPage", { currentPage, totalPages })
+							: $t("socialstar.loadNewPosts")
 					}}
 				</k-button>
 				<k-button

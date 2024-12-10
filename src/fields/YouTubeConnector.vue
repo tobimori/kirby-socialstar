@@ -56,13 +56,35 @@ const disconnect = () => {
 	})
 }
 
-const isLoading = ref(false)
-const refresh = () => {
-	isLoading.value = true
-	panel.api.get(`${panel.view.path}/fields/${props.name}/update`).then(() => {
-		isLoading.value = false
-		panel.reload()
+const currentPage = ref(null)
+const refresh = async () => {
+	currentPage.value = 1
+	const previousTokens = []
+	let pageToken = null
+	while (pageToken !== undefined) {
+		if (pageToken) {
+			previousTokens.push(pageToken)
+		}
+
+		try {
+			const request = await panel.api.post(
+				`${panel.view.path}/fields/${props.name}/update`,
+				{ pageToken }
+			)
+
+			currentPage.value++
+			pageToken = request.token ?? undefined
+		} catch (error) {
+			panel.notification.error(error.message)
+		}
+	}
+
+	await panel.api.post(`${panel.view.path}/fields/${props.name}/cleanup`, {
+		pageTokens: previousTokens
 	})
+
+	currentPage.value = null
+	panel.reload()
 }
 </script>
 
@@ -71,7 +93,10 @@ const refresh = () => {
 		service="youtube"
 		:isConnected="!!userDetails"
 		:hasAuthCredentials="hasAuthCredentials"
-		:isLoading="isLoading"
+		:currentPage="currentPage"
+		:totalPages="
+			userDetails ? Math.ceil(userDetails.statistics.videoCount / 20) : 0
+		"
 		@connect="connect"
 		@disconnect="disconnect"
 		@refresh="refresh"

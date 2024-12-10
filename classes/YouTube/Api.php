@@ -86,7 +86,7 @@ class Api
 			data: [
 				'part' => 'snippet',
 				'playlistId' => $playlistId,
-				'maxResults' => 50,
+				'maxResults' => 20,
 				'pageToken' => $pageToken,
 			],
 		);

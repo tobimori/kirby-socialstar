@@ -6,7 +6,9 @@ use Kirby\Cms\App;
 use Kirby\Data\Json;
 use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
+use Kirby\Plugin\Plugin;
 use Kirby\Toolkit\A;
+use tobimori\SocialStar\SocialStar;
 
 if (
 	version_compare(App::version() ?? '0.0.0', '5.0.0-beta.1', '<') === true ||
@@ -62,4 +64,5 @@ App::plugin(
 		'homepage' => 'https://plugins.andkindness.com/socialstar'
 	],
 	version: '1.0.0',
+	license: fn() => SocialStar::license()
 );

@@ -3,6 +3,7 @@
 namespace tobimori\SocialStar;
 
 use Kirby\Cms\App;
+use tobimori\SocialStar\Support\License;
 
 final class SocialStar
 {
@@ -25,5 +26,10 @@ final class SocialStar
 		}
 
 		return $option;
+	}
+
+	public static function license(): License
+	{
+		return License::fromDisk('SocialStar');
 	}
 }

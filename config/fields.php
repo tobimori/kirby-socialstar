@@ -129,15 +129,35 @@ return [
 				],
 				[
 					'pattern' => '/update',
+					'method' => 'POST',
 					'action' => function () {
 						$page = $this->field()->model();
 						if (!$page) {
 							return false;
 						}
 
-						$page->youtubeApi()->flushCache();
-						$page->fetchNewYouTubeVideos();
-						$page->deleteObsoleteYouTubeVideoPages();
+						$body = $page->kirby()->request()->body();
+						$token = $body->get('pageToken');
+						if (!$token) {
+							$page->youtubeApi()->flushCache();
+						}
+
+						return ['token' => $page->fetchNewYouTubeVideos($token)];
+					}
+				],
+				[
+					'pattern' => '/cleanup',
+					'method' => 'POST',
+					'action' => function () {
+						$page = $this->field()->model();
+						if (!$page) {
+							return false;
+						}
+
+						$body = $page->kirby()->request()->body();
+						$tokens = $body->get('pageTokens');
+
+						$page->deleteObsoleteYouTubeVideoPages([null, ...$tokens]);
 
 						return true;
 					}
