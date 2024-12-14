@@ -15,7 +15,7 @@ class InstagramFeedPage extends Page
 	{
 		if ($this->instagramAccessToken()) {
 			$userDetails = $this->instagramApi()->cache('getUserDetails', $this->instagramAccessToken());
-			if ($userDetails) {
+			if (isset($userDetails['username'])) {
 				return new Field($this, 'title',  I18n::template('socialstar.instagram.accountName', replace: ['name' => $userDetails['username']]));
 			}
 		}
